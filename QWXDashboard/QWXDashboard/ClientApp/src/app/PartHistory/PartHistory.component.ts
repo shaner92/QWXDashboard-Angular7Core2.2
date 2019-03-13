@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CollectionViewer, SelectionChange } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
@@ -9,16 +9,16 @@ import { map } from 'rxjs/operators';
 //  selector: 'app-PartHistory-component',
 //  templateUrl: './PartHistory.component.html'
 //})
-//export class PartHistoryComponent {
-//  public data: parthistory[];
+export class PartHistoryComponent {
+  public data: parthistory[];
 
-//  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-//    http.get<parthistory[]>(baseUrl + 'api/PartHistory/data').subscribe(result => {
-//      this.data = result;
-//    }, error => console.error(error));
-//  }
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<parthistory[]>(baseUrl + 'api/PartHistory/data').subscribe(result => {
+      this.data = result;
+    }, error => console.error(error));
+  }
   
-//}
+}
 //interface parthistory {
 //  serialNumber: string;
 //}
@@ -32,7 +32,12 @@ export class PartHistoryNode {
  * Database for dynamic data. When expanding a node in the tree, the data source will need to fetch
  * the descendants data from the database.
  */
+interface parthistory {
+    serialNumber: string;
+}
+
 export class PartHistoryDatabase {
+  
     dataMap = new Map<string, string[]>([
         ['Fruits', ['Apple', 'Orange', 'Banana']],
         ['Vegetables', ['Tomato', 'Potato', 'Onion']],
