@@ -1,65 +1,63 @@
-import { Component, Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CollectionViewer, SelectionChange } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-//@Component({
-//  selector: 'app-PartHistory-component',
-//  templateUrl: './PartHistory.component.html'
-//})
-export class PartHistoryComponent {
-  public data: parthistory[];
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<parthistory[]>(baseUrl + 'api/PartHistory/data').subscribe(result => {
-      this.data = result;
-    }, error => console.error(error));
-  }
-  
+import { Component, Injectable } from '@angular/core';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+/**
+ * File node data with nested structure.
+ * Each node has a filename, and a type or a list of children.
+ */
+export class FileNode {
+    children: FileNode[];
+    filename: string;
+    type: any;
 }
-//interface parthistory {
-//  serialNumber: string;
-//}
+
 /** Flat node with expandable and level information */
-export class PartHistoryNode {
-    constructor(public item: string, public level = 1, public expandable = false,
-        public isLoading = false) { }
+export class FileFlatNode {
+    constructor(
+        public expandable: boolean, public filename: string, public level: number, public type: any) { }
 }
 
 /**
- * Database for dynamic data. When expanding a node in the tree, the data source will need to fetch
- * the descendants data from the database.
+ * The file structure tree data in string. The data could be parsed into a Json object
  */
-interface parthistory {
-    serialNumber: string;
-}
-
-export class PartHistoryDatabase {
-  
-    dataMap = new Map<string, string[]>([
-        ['Fruits', ['Apple', 'Orange', 'Banana']],
-        ['Vegetables', ['Tomato', 'Potato', 'Onion']],
-        ['Apple', ['Fuji', 'Macintosh']],
-        ['Onion', ['Yellow', 'White', 'Purple']]
-    ]);
-
-    rootLevelNodes: string[] = ['Fruits', 'Vegetables'];
-
-    /** Initial data from database */
-    initialData(): PartHistoryNode[] {
-        return this.rootLevelNodes.map(name => new PartHistoryNode(name, 0, true));
+const TREE_DATA = JSON.stringify({
+    Applications: {
+        Calendar: 'app',
+        Chrome: 'app',
+        Webstorm: 'app'
+    },
+    Documents: {
+        angular: {
+            src: {
+                compiler: 'ts',
+                core: 'ts'
+            }
+        },
+        material2: {
+            src: {
+                button: 'ts',
+                checkbox: 'ts',
+                input: 'ts'
+            }
+        }
+    },
+    Downloads: {
+        October: 'pdf',
+        November: 'pdf',
+        Tutorial: 'html'
+    },
+    Pictures: {
+        'Photo Booth Library': {
+            Contents: 'dir',
+            Pictures: 'dir'
+        },
+        Sun: 'png',
+        Woods: 'jpg'
     }
+});
 
-    getChildren(node: string): string[] | undefined {
-        return this.dataMap.get(node);
-    }
-
-    isExpandable(node: string): boolean {
-        return this.dataMap.has(node);
-    }
-}
 /**
  * File database, it can build a tree structured Json object from string.
  * Each node in Json object represents a file or a directory. For a file, it has filename and type.
@@ -68,94 +66,95 @@ export class PartHistoryDatabase {
  * structure.
  */
 @Injectable()
-export class PartHistoryDataSource {
+export class FileDatabase {
+    dataChange = new BehaviorSubject<FileNode[]>([]);
 
-    dataChange = new BehaviorSubject<PartHistoryNode[]>([]);
+    get data(): FileNode[] { return this.dataChange.value; }
 
-    get data(): PartHistoryNode[] { return this.dataChange.value; }
-    set data(value: PartHistoryNode[]) {
-        this.treeControl.dataNodes = value;
-        this.dataChange.next(value);
+    constructor() {
+        this.initialize();
     }
 
-    constructor(private treeControl: FlatTreeControl<PartHistoryNode>,
-        private database: PartHistoryDatabase) { }
+    initialize() {
+        // Parse the string to json object.
+        const dataObject = JSON.parse(TREE_DATA);
 
-    connect(collectionViewer: CollectionViewer): Observable<PartHistoryNode[]> {
-        this.treeControl.expansionModel.onChange.subscribe(change => {
-            if ((change as SelectionChange<PartHistoryNode>).added ||
-                (change as SelectionChange<PartHistoryNode>).removed) {
-                this.handleTreeControl(change as SelectionChange<PartHistoryNode>);
-            }
-        });
+        // Build the tree nodes from Json object. The result is a list of `FileNode` with nested
+        //     file node as children.
+        const data = this.buildFileTree(dataObject, 0);
 
-        return merge(collectionViewer.viewChange, this.dataChange).pipe(map(() => this.data));
-    }
-
-    /** Handle expand/collapse behaviors */
-    handleTreeControl(change: SelectionChange<PartHistoryNode>) {
-        if (change.added) {
-            change.added.forEach(node => this.toggleNode(node, true));
-        }
-        if (change.removed) {
-            change.removed.slice().reverse().forEach(node => this.toggleNode(node, false));
-        }
+        // Notify the change.
+        this.dataChange.next(data);
     }
 
     /**
-     * Toggle the node, remove from display list
+     * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
+     * The return value is the list of `FileNode`.
      */
-    toggleNode(node: PartHistoryNode, expand: boolean) {
-        const children = this.database.getChildren(node.item);
-        const index = this.data.indexOf(node);
-        if (!children || index < 0) { // If no children, or cannot find the node, no op
-            return;
-        }
+    buildFileTree(obj: { [key: string]: any }, level: number): FileNode[] {
+        return Object.keys(obj).reduce<FileNode[]>((accumulator, key) => {
+            const value = obj[key];
+            const node = new FileNode();
+            node.filename = key;
 
-        node.isLoading = true;
-
-        setTimeout(() => {
-            if (expand) {
-                const nodes = children.map(name =>
-                    new PartHistoryNode(name, node.level + 1, this.database.isExpandable(name)));
-                this.data.splice(index + 1, 0, ...nodes);
-            } else {
-                let count = 0;
-                for (let i = index + 1; i < this.data.length
-                    && this.data[i].level > node.level; i++ , count++) { }
-                this.data.splice(index + 1, count);
+            if (value != null) {
+                if (typeof value === 'object') {
+                    node.children = this.buildFileTree(value, level + 1);
+                } else {
+                    node.type = value;
+                }
             }
 
-            // notify the change
-            this.dataChange.next(this.data);
-            node.isLoading = false;
-        }, 1000);
+            return accumulator.concat(node);
+        }, []);
     }
 }
 
 /**
- * @title Tree with dynamic data
+ * @title Tree with flat nodes
  */
 @Component({
     selector: 'app-PartHistory-component',
     templateUrl: './PartHistory.component.html',
-    providers: [PartHistoryDatabase]
+    providers: [FileDatabase]
 })
-export class TreeDynamicExample {
-    constructor(database: PartHistoryDatabase) {
-        this.treeControl = new FlatTreeControl<PartHistoryNode>(this.getLevel, this.isExpandable);
-        this.dataSource = new PartHistoryDataSource(this.treeControl, database);
+export class PartHistoryComponent {
+    http: HttpClient;
+    treeControl: FlatTreeControl<FileFlatNode>;
+    treeFlattener: MatTreeFlattener<FileNode, FileFlatNode>;
+    dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
 
-        this.dataSource.data = database.initialData();
+    constructor(database: FileDatabase) {
+        
+        this.http.get<string>('http://localhost:9220/PartHistory/api/data').subscribe(result => {
+           // this.data = result;
+            console.log(result);
+        }, error => console.error(error));
+    
+       
+
+        this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel,
+        this._isExpandable, this._getChildren);
+        this.treeControl = new FlatTreeControl<FileFlatNode>(this._getLevel, this._isExpandable);
+        this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+        database.dataChange.subscribe(data => this.dataSource.data = data);
     }
 
-    treeControl: FlatTreeControl<PartHistoryNode>;
+    transformer = (node: FileNode, level: number) => {
+        return new FileFlatNode(!!node.children, node.filename, level, node.type);
+    }
 
-    dataSource: PartHistoryDataSource;
+    private _getLevel = (node: FileFlatNode) => node.level;
 
-    getLevel = (node: PartHistoryNode) => node.level;
+    private _isExpandable = (node: FileFlatNode) => node.expandable;
 
-    isExpandable = (node: PartHistoryNode) => node.expandable;
+    private _getChildren = (node: FileNode): Observable<FileNode[]> => observableOf(node.children);
 
-    hasChild = (_: number, _nodeData: PartHistoryNode) => _nodeData.expandable;
+    hasChild = (_: number, _nodeData: FileFlatNode) => _nodeData.expandable;
 }
+
+
+/**  Copyright 2019 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license */
