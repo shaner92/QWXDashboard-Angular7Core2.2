@@ -19,44 +19,6 @@ export class FileFlatNode {
         public expandable: boolean, public filename: string, public level: number, public type: any) { }
 }
 
-/**
- * The file structure tree data in string. The data could be parsed into a Json object
- */
-const TREE_DATA = JSON.stringify({
-    Applications: {
-        Calendar: 'app',
-        Chrome: 'app',
-        Webstorm: 'app'
-    },
-    Documents: {
-        angular: {
-            src: {
-                compiler: 'ts',
-                core: 'ts'
-            }
-        },
-        material2: {
-            src: {
-                button: 'ts',
-                checkbox: 'ts',
-                input: 'ts'
-            }
-        }
-    },
-    Downloads: {
-        October: 'pdf',
-        November: 'pdf',
-        Tutorial: 'html'
-    },
-    Pictures: {
-        'Photo Booth Library': {
-            Contents: 'dir',
-            Pictures: 'dir'
-        },
-        Sun: 'png',
-        Woods: 'jpg'
-    }
-});
 
 /**
  * File database, it can build a tree structured Json object from string.
@@ -72,38 +34,16 @@ export class FileDatabase {
     get data(): FileNode[] { return this.dataChange.value; }
 
     constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-         http.get(baseUrl + 'api/PartHistory/Get').subscribe(result => {
-             const dataObject = result;
-              const data = this.buildFileTree(dataObject, 0);
+        http.get(baseUrl + 'api/PartHistory/Get').subscribe(result => {
+              // assign the get data from controller to data ojbect
+            const dataObject = result;
+            //build tree from part controller json data
+            const data = this.buildFileTree(dataObject, 0);
+                   //// Notify the change.
              this.dataChange.next(data);
             console.log(result)
         }, error => console.error(error));
-
-        // Parse the string to json object.
-        //const dataObject = JSON.parse(TREE_DATA);
-        //this.getData()
-        // Build the tree nodes from Json object. The result is a list of `FileNode` with nested
-        ////     file node as children.
-        //const data = this.buildFileTree(dataObject, 0);
-
-        //// Notify the change.
-        //this.dataChange.next(data);
-       // this.initialize();
     }
-
-    initialize() {
-
-        // Parse the string to json object.
-        //const dataObject = JSON.parse(TREE_DATA);
-        ////this.getData()
-        //// Build the tree nodes from Json object. The result is a list of `FileNode` with nested
-        ////     file node as children.
-        //const data = this.buildFileTree(dataObject, 0);
-
-        //// Notify the change.
-        //this.dataChange.next(data);
-    }
-
     /**
      * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
      * The return value is the list of `FileNode`.
@@ -140,17 +80,7 @@ export class PartHistoryComponent {
     treeControl: FlatTreeControl<FileFlatNode>;
     treeFlattener: MatTreeFlattener<FileNode, FileFlatNode>;
     dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
-   //public test: string;
     constructor(database: FileDatabase) {
-        var test;
-       // http.get(baseUrl + 'api/PartHistory/Get').subscribe( responseData => console.log(responseData));
-        //http.get(baseUrl + 'api/PartHistory/Get').subscribe(result => {
-        //    test = result;
-        //    console.log(result)
-        //}, error => console.error(error));
-
-
-
         this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel,
         this._isExpandable, this._getChildren);
         this.treeControl = new FlatTreeControl<FileFlatNode>(this._getLevel, this._isExpandable);
@@ -173,8 +103,3 @@ export class PartHistoryComponent {
 
     
 }
-
-
-/**  Copyright 2019 Google Inc. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license */
