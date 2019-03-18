@@ -42,4 +42,4 @@ import { TrendBrowserComponent } from './trend-browser/trend-browser.component';
 })
 export class AppModule { }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+//platformBrowserDynamic().bootstrapModule(AppModule);

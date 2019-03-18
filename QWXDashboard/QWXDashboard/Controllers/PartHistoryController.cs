@@ -14,33 +14,42 @@ namespace QWXDashboard.Controllers
     [ApiController]
     public class PartHistoryController : ControllerBase
     {
-       
+        //private DataAccess da = new DataAccess();
+        private List<PartHistory> phList = new List<PartHistory>();
         [HttpGet("[action]")]
-        public string data()
+        public string Get()
         {
+            //da.InsertAsync();
+          
+            for (int i = 0; i < 10; i++)
+            {
+                PartHistory ph = new PartHistory();
+                ph.SerialNumber = i.ToString();
+                phList.Add(ph);
+            }
+           
+            //ph.status = "fail";
+            string output = JsonConvert.SerializeObject(phList);
+            //"Applications: { Calendar: app, Chrome: app, Webstorm: app}" );
 
-            PartHistory ph = new PartHistory();
-            ph.SerialNumber = "1234";
-            ph.status = "fail";
-            string output = JsonConvert.SerializeObject(ph);
 
 
-
-            //var test = new List<Station>();
-            ////test.Add(new PartHistory { SerialNumber = DataMapz});
+            //var test = new PartHistory();
+            //test.Add(new PartHistory { SerialNumber = DataMapz});
             //using (var client = new SqlConnection(""))
             //{
             //    client.ConnectionString = "data source=SHANER-WIND; initial catalog=QWX_SPH_TEST; integrated security=SSPI";
             //    client.Open();
-            //    SqlCommand cmd = new SqlCommand("Select label from PART", client);
+            //    SqlCommand cmd = new SqlCommand("Select label from PART FOR JSON_AUTO", client);
             //    using (var reader = cmd.ExecuteReader())
-
             //        while (reader.Read())
             //        {
-            //            test.Add(new Station {label = reader.GetString(0) });
+            //            //ph.SerialNumber = reader.GetString(0);
             //        }
 
             //};
+
+            
             return output;
         }
            
@@ -53,7 +62,7 @@ namespace QWXDashboard.Controllers
         public class PartHistory
         {
         public string SerialNumber { get; set; }
-        public string status { get; set; } 
+        //public string status { get; set; } 
         }
 
     

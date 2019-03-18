@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, Inject } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -71,20 +71,37 @@ export class FileDatabase {
 
     get data(): FileNode[] { return this.dataChange.value; }
 
-    constructor() {
-        this.initialize();
+    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+         http.get(baseUrl + 'api/PartHistory/Get').subscribe(result => {
+             const dataObject = result;
+              const data = this.buildFileTree(dataObject, 0);
+             this.dataChange.next(data);
+            console.log(result)
+        }, error => console.error(error));
+
+        // Parse the string to json object.
+        //const dataObject = JSON.parse(TREE_DATA);
+        //this.getData()
+        // Build the tree nodes from Json object. The result is a list of `FileNode` with nested
+        ////     file node as children.
+        //const data = this.buildFileTree(dataObject, 0);
+
+        //// Notify the change.
+        //this.dataChange.next(data);
+       // this.initialize();
     }
 
     initialize() {
+
         // Parse the string to json object.
-        const dataObject = JSON.parse(TREE_DATA);
+        //const dataObject = JSON.parse(TREE_DATA);
+        ////this.getData()
+        //// Build the tree nodes from Json object. The result is a list of `FileNode` with nested
+        ////     file node as children.
+        //const data = this.buildFileTree(dataObject, 0);
 
-        // Build the tree nodes from Json object. The result is a list of `FileNode` with nested
-        //     file node as children.
-        const data = this.buildFileTree(dataObject, 0);
-
-        // Notify the change.
-        this.dataChange.next(data);
+        //// Notify the change.
+        //this.dataChange.next(data);
     }
 
     /**
@@ -108,30 +125,31 @@ export class FileDatabase {
             return accumulator.concat(node);
         }, []);
     }
+    
 }
 
 /**
  * @title Tree with flat nodes
  */
 @Component({
-    selector: 'app-PartHistory-component',
+    selector: 'app-PartHistory',
     templateUrl: './PartHistory.component.html',
     providers: [FileDatabase]
 })
 export class PartHistoryComponent {
-    http: HttpClient;
     treeControl: FlatTreeControl<FileFlatNode>;
     treeFlattener: MatTreeFlattener<FileNode, FileFlatNode>;
     dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
-
+   //public test: string;
     constructor(database: FileDatabase) {
-        
-        this.http.get<string>('http://localhost:9220/PartHistory/api/data').subscribe(result => {
-           // this.data = result;
-            console.log(result);
-        }, error => console.error(error));
-    
-       
+        var test;
+       // http.get(baseUrl + 'api/PartHistory/Get').subscribe( responseData => console.log(responseData));
+        //http.get(baseUrl + 'api/PartHistory/Get').subscribe(result => {
+        //    test = result;
+        //    console.log(result)
+        //}, error => console.error(error));
+
+
 
         this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel,
         this._isExpandable, this._getChildren);
@@ -152,6 +170,8 @@ export class PartHistoryComponent {
     private _getChildren = (node: FileNode): Observable<FileNode[]> => observableOf(node.children);
 
     hasChild = (_: number, _nodeData: FileFlatNode) => _nodeData.expandable;
+
+    
 }
 
 
