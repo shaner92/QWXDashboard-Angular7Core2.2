@@ -10,7 +10,7 @@ namespace QWXDashboard.Controllers
 {
     public class DataAccess
     {
-        const string connectionString = "mongodb+srv://qwxadmin:QualityW0rX@cluster0-o4tcb.mongodb.net/test?retryWrites=true";
+        const string connectionString = "mongodb://qwxadmin:QualityW0rX@cluster0-shard-00-00-o4tcb.mongodb.net:27017,cluster0-shard-00-01-o4tcb.mongodb.net:27017,cluster0-shard-00-02-o4tcb.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
        
         public async void InsertAsync()
         {
@@ -25,7 +25,7 @@ namespace QWXDashboard.Controllers
             await collection.InsertOneAsync(new BsonDocument { { "Section", "Section1" }, {"Station", "Station3" } });
         }
 
-        public async void ReadAsync()
+        public List<BsonDocument> ReadAsync()
         {
             // Create a MongoClient object by using the connection string
             var client = new MongoClient(connectionString);
@@ -35,20 +35,12 @@ namespace QWXDashboard.Controllers
 
             //get mongodb collection
             var collection = database.GetCollection<BsonDocument>("Sections");
-            using (IAsyncCursor<BsonDocument> cursor = await collection.FindAsync(new BsonDocument()))
-            {
-                while (await cursor.MoveNextAsync())
-                {
-                    IEnumerable<BsonDocument> batch = cursor.Current;
-                    foreach (BsonDocument document in batch)
-                    {
-                        Console.WriteLine(document);
-                        Console.WriteLine();
-                    }
-                }
-            }
-            //var query = Query<BsonDocument>.EQ(e => e.Id, id);
-            //return collection.FindAsync(query);
+            //var filter = Builders<BsonDocument>.Filter.Eq("Label", "Section1");
+            var projection = Builders<BsonDocument>.Projection.Exclude("_id");
+            //return collection.Find<BsonDocument>(filter).Project(projection).ToList();
+            return collection.Find(new BsonDocument()).Project(projection).ToList();
+
+
 
         }
 

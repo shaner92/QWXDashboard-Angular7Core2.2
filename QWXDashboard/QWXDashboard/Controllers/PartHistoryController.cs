@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using System.Web;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace QWXDashboard.Controllers
 {
@@ -14,26 +16,17 @@ namespace QWXDashboard.Controllers
     [ApiController]
     public class PartHistoryController : ControllerBase
     {
-        //private DataAccess da = new DataAccess();
-        private List<PartHistory> phList = new List<PartHistory>();
+        private DataAccess da = new DataAccess();
+        private List<BsonDocument> phList = new List<BsonDocument>();
+
         [HttpGet("[action]")]
         public string Get()
         {
-            //da.InsertAsync();
-          
-            for (int i = 0; i < 10; i++)
-            {
-                PartHistory ph = new PartHistory();
-                ph.SerialNumber = i.ToString();
-                phList.Add(ph);
-            }
-           
-            //ph.status = "fail";
-            string output = JsonConvert.SerializeObject(phList);
-            //"Applications: { Calendar: app, Chrome: app, Webstorm: app}" );
-
-
-
+     
+          phList = da.ReadAsync();
+          var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
+            //Console.WriteLine(phList);
+         // string output = JsonConvert.SerializeObject(phList);
             //var test = new PartHistory();
             //test.Add(new PartHistory { SerialNumber = DataMapz});
             //using (var client = new SqlConnection(""))
@@ -50,19 +43,13 @@ namespace QWXDashboard.Controllers
             //};
 
             
-            return output;
+            return json;
         }
            
 
     }
+}
 
-
-        }
-
-        public class PartHistory
-        {
-        public string SerialNumber { get; set; }
-        //public string status { get; set; } 
-        }
+ 
 
     
