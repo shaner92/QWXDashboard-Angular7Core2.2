@@ -1,5 +1,5 @@
-<div class='main-nav'>
-  <nav class='navbar navbar-expand-lg navbar-dark bg-dark d-flex flex-column'>
+<!--<div class='main-nav'>
+  <nav class='navbar navbar-expand-lg navbar-light bg-light d-flex flex-column'>
       <div class="navbar-header p-0">
           <a class='navbar-brand' [routerLink]='["/"]'>Home</a>
           <button type='button' class='navbar-toggler' data-toggle='collapse' data-target='#navbarNav' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
@@ -23,8 +23,63 @@
                           <span class='fas fa-database'></span> Trend Browser
                       </a>
                   </li>
+                  <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                      <a [routerLink]='["/trend-browser"]' class="nav-link" (click)='collapse()'>
+                          <span class='fas fa-file'></span> Reports
+                      </a>
+                  </li>
+                  <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                      <a [routerLink]='["/trend-browser"]' class="nav-link" (click)='collapse()'>
+                          <span class='fas fa-user-shield'></span> Admin Tools
+                      </a>
+                  </li>
               </ul>
           </div>
       </div>
   </nav>
-</div>
+</div>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+                <a [routerLink]='["/"]' class="nav-link" (click)='collapse()'>
+                    <span class='fas fa-home'></span> Home
+                </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                <a [routerLink]='["/PartHistory"]' class="nav-link" (click)='collapse()'>
+                    <span class='fas fa-sort-amount-up'></span> Part History
+                </a>
+            </li>
+
+
+            <li class="nav-item dropdown" [routerLinkActive]='["link-active"]'>
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class='fas fa-file'></span> Reports
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" [routerLink]='["/trend-browser"]'>Failure Report</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" [routerLink]='["/trend-browser"]'>First Time Yield</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" [routerLink]='["/trend-browser"]'>Failure Pareto</a>
+                </div>
+            </li>
+            <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                <a [routerLink]='["/trend-browser"]' class="nav-link" (click)='collapse()'>
+                    <span class='fas fa-user-shield'></span> Admin Tools
+                </a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+
+</nav>

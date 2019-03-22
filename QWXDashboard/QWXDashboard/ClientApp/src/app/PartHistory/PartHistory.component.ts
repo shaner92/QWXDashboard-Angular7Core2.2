@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, Injectable, Inject } from '@angular/core';
+import { Component, Injectable, Inject, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -76,17 +76,23 @@ export class FileDatabase {
     templateUrl: './PartHistory.component.html',
     providers: [FileDatabase]
 })
-export class PartHistoryComponent {
+export class PartHistoryComponent implements OnInit {
+    public retPostData;
     treeControl: FlatTreeControl<FileFlatNode>;
     treeFlattener: MatTreeFlattener<FileNode, FileFlatNode>;
     dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
-    constructor(database: FileDatabase) {
+    http: HttpClient;
+    baseUrl: string;
+    constructor(database: FileDatabase, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+        this.http = http;
+        this.baseUrl = baseUrl;
         this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel,
         this._isExpandable, this._getChildren);
         this.treeControl = new FlatTreeControl<FileFlatNode>(this._getLevel, this._isExpandable);
         this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
         database.dataChange.subscribe(data => this.dataSource.data = data);
+
     }
 
     transformer = (node: FileNode, level: number) => {
@@ -101,5 +107,15 @@ export class PartHistoryComponent {
 
     hasChild = (_: number, _nodeData: FileFlatNode) => _nodeData.expandable;
 
+
+    ngOnInit() {
+    }
+    public PostData() {
+        const retVal = this.http.post(this.baseUrl + 'api/PartHistory/Post', '1234').subscribe
+            (data => {
+            this.retPostData = data;
+            });
+    }
+    
     
 }

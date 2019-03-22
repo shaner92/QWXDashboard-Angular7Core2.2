@@ -14,6 +14,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { PartHistoryComponent } from './PartHistory/PartHistory.component';
 import { TrendBrowserComponent } from './trend-browser/trend-browser.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { TrendBrowserComponent } from './trend-browser/trend-browser.component';
         NavMenuComponent,
         HomeComponent,
         PartHistoryComponent,
-        TrendBrowserComponent
+        TrendBrowserComponent,
+        FooterComponent,
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

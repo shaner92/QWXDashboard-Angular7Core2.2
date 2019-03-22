@@ -58,7 +58,6 @@ C:\Users\shaner\OneDrive - Sciemetric Instruments\GitHub\QWXDashboard-Angular7Co
 C:\Users\shaner\OneDrive - Sciemetric Instruments\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\bin\Debug\netcoreapp2.2\ASP.NET Core 2.2 with Angular 7.pdb
 C:\Users\shaner\OneDrive - Sciemetric Instruments\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\bin\Debug\netcoreapp2.2\ASP.NET Core 2.2 with Angular 7.Views.dll
 C:\Users\shaner\OneDrive - Sciemetric Instruments\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\bin\Debug\netcoreapp2.2\ASP.NET Core 2.2 with Angular 7.Views.pdb
-C:\Users\shaner\OneDrive - Sciemetric Instruments\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\obj\Debug\netcoreapp2.2\QWXDashboard.csprojAssemblyReference.cache
 C:\Users\shaner\OneDrive - Sciemetric Instruments\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\obj\Debug\netcoreapp2.2\QWXDashboard.RazorAssemblyInfo.cache
 C:\Users\shaner\OneDrive - Sciemetric Instruments\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\obj\Debug\netcoreapp2.2\QWXDashboard.RazorAssemblyInfo.cs
 C:\Users\shaner\OneDrive - Sciemetric Instruments\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\obj\Debug\netcoreapp2.2\ASP.NET Core 2.2 with Angular 7.TagHelpers.input.cache

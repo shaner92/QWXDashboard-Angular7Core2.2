@@ -28,11 +28,17 @@ namespace QWXDashboard.Controllers
             
           return json;
         }
-           
+
+        [HttpPost("[action]")]
+        public string Post([FromBody] string obj)
+        {
+            string myObj = obj;
+            var json = myObj.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
+
+            return json;
+        }
+
 
     }
 }
 
- 
-
-    

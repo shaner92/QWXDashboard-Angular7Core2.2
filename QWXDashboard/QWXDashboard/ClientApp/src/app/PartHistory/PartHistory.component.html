@@ -1,12 +1,13 @@
-<h1>Part History</h1>
+<div class="grey">
+    <h1>Part History</h1>
 
-<p>Search for Serial Number</p>
-<form class="example-form" >
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Serial Number">
-    </mat-form-field>
-        <button mat-stroked-button type="submit">Search</button>
-</form>
+    <p>Search for Serial Number</p>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Serial Number">
+        </mat-form-field>
+        <button mat-stroked-button type="submit" ng-click="search()">Search</button>
+    </form>
     <!--<p *ngIf="!data"><em>Loading...</em></p>
     <table class='table' *ngIf="data">
       <thead>
@@ -20,8 +21,15 @@
         </tr>
       </tbody>
     </table>-->
+    <!--<div *ngIf="data">-->
 
-<!--<div *ngIf="data">-->
+    <input type="button" name="postBtn" style="height:25px;width:200px"
+           (click)="PostData()" value="Execute Http Post Call" />
+    <br>
+    {{ retPostData }}
+    <hr>
+
+
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
             <button mat-icon-button disabled></button>
@@ -32,10 +40,10 @@
             <button mat-icon-button matTreeNodeToggle
                     [attr.aria-label]="'toggle ' + node.filename">
                 <mat-icon class="mat-icon-rtl-mirror">
-                     {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}} 
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                 </mat-icon>
             </button>
             <a href="#"> {{node.filename}} : {{node.type}}</a>
-</mat-tree-node>
+        </mat-tree-node>
     </mat-tree>
-<!--</div>-->
+</div>
