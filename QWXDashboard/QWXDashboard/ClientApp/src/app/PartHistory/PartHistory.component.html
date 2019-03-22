@@ -4,9 +4,11 @@
     <p>Search for Serial Number</p>
     <form class="example-form">
         <mat-form-field class="example-full-width">
-            <input matInput placeholder="Serial Number">
+            <input #SN matInput name="SN" placeholder="Serial Number">
         </mat-form-field>
-        <button mat-stroked-button type="submit" ng-click="search()">Search</button>
+        <button mat-stroked-button type="submit" (click)="PostData(SN.value)">Search</button>
+        <br>
+        {{ retPostData }}
     </form>
     <!--<p *ngIf="!data"><em>Loading...</em></p>
     <table class='table' *ngIf="data">
@@ -23,11 +25,10 @@
     </table>-->
     <!--<div *ngIf="data">-->
 
-    <input type="button" name="postBtn" style="height:25px;width:200px"
+    <!--<input type="button" name="postBtn" style="height:25px;width:200px"
            (click)="PostData()" value="Execute Http Post Call" />
-    <br>
-    {{ retPostData }}
-    <hr>
+    
+    <hr>-->
 
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">

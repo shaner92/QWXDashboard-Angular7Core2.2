@@ -110,8 +110,8 @@ export class PartHistoryComponent implements OnInit {
 
     ngOnInit() {
     }
-    public PostData() {
-        const retVal = this.http.post(this.baseUrl + 'api/PartHistory/Post', '1234').subscribe
+    public PostData(SerialNum: string) {
+        const retVal = this.http.post(this.baseUrl + 'api/PartHistory/Post', { SN: SerialNum}).subscribe
             (data => {
             this.retPostData = data;
             });

@@ -30,9 +30,9 @@ namespace QWXDashboard.Controllers
         }
 
         [HttpPost("[action]")]
-        public string Post([FromBody] string obj)
+        public string Post([FromBody] SerialNumber obj)
         {
-            string myObj = obj;
+            string myObj = obj.SN;
             var json = myObj.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
 
             return json;
@@ -40,5 +40,10 @@ namespace QWXDashboard.Controllers
 
 
     }
+}
+public class SerialNumber
+{
+    public string SN;
+
 }
 
