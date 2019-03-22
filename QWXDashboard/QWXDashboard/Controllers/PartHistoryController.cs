@@ -17,7 +17,7 @@ namespace QWXDashboard.Controllers
     public class PartHistoryController : ControllerBase
     {
         private DataAccess da = new DataAccess();
-        private List<BsonDocument> phList = new List<BsonDocument>();
+        private BsonDocument phList = new BsonDocument();
 
         [HttpGet("[action]")]
         public string Get()
@@ -25,25 +25,8 @@ namespace QWXDashboard.Controllers
      
           phList = da.ReadAsync();
           var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
-            //Console.WriteLine(phList);
-         // string output = JsonConvert.SerializeObject(phList);
-            //var test = new PartHistory();
-            //test.Add(new PartHistory { SerialNumber = DataMapz});
-            //using (var client = new SqlConnection(""))
-            //{
-            //    client.ConnectionString = "data source=SHANER-WIND; initial catalog=QWX_SPH_TEST; integrated security=SSPI";
-            //    client.Open();
-            //    SqlCommand cmd = new SqlCommand("Select label from PART FOR JSON_AUTO", client);
-            //    using (var reader = cmd.ExecuteReader())
-            //        while (reader.Read())
-            //        {
-            //            //ph.SerialNumber = reader.GetString(0);
-            //        }
-
-            //};
-
             
-            return json;
+          return json;
         }
            
 
