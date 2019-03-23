@@ -23,7 +23,7 @@ namespace QWXDashboard.Controllers
         public string Get()
         {
      
-          phList = da.ReadAsync();
+          //phList = da.ReadAsync();
           var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
             
           return json;
@@ -32,8 +32,10 @@ namespace QWXDashboard.Controllers
         [HttpPost("[action]")]
         public string Post([FromBody] SerialNumber obj)
         {
-            string myObj = obj.SN;
-            var json = myObj.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
+            //string myObj = obj.SN;
+            //var json = myObj.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
+            phList = da.ReadPartHistory(obj.SN);
+            var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
 
             return json;
         }

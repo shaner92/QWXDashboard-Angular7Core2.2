@@ -32,17 +32,16 @@ export class FileDatabase {
     dataChange = new BehaviorSubject<FileNode[]>([]);
 
     get data(): FileNode[] { return this.dataChange.value; }
-
-    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-        http.get(baseUrl + 'api/PartHistory/Get').subscribe(result => {
+    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, treeData: string) {
+        //http.get(baseUrl + 'api/PartHistory/Get').subscribe(result => {
               // assign the get data from controller to data ojbect
-            const dataObject = result;
+            const dataObject = JSON.parse(treeData);
             //build tree from part controller json data
             const data = this.buildFileTree(dataObject, 0);
                    //// Notify the change.
              this.dataChange.next(data);
-            console.log(result)
-        }, error => console.error(error));
+        //    console.log(result)
+        //}, error => console.error(error));
     }
     /**
      * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
@@ -77,22 +76,20 @@ export class FileDatabase {
     providers: [FileDatabase]
 })
 export class PartHistoryComponent implements OnInit {
-    public retPostData;
+    public SN;
+    toLoad: boolean = false;
     treeControl: FlatTreeControl<FileFlatNode>;
     treeFlattener: MatTreeFlattener<FileNode, FileFlatNode>;
     dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
     http: HttpClient;
     baseUrl: string;
-    constructor(database: FileDatabase, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    database: FileDatabase;
+
+    constructor( http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
         this.http = http;
         this.baseUrl = baseUrl;
-        this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel,
-        this._isExpandable, this._getChildren);
-        this.treeControl = new FlatTreeControl<FileFlatNode>(this._getLevel, this._isExpandable);
-        this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-        database.dataChange.subscribe(data => this.dataSource.data = data);
-
+       // this.database = database;
+        //database: FileDatabase,
     }
 
     transformer = (node: FileNode, level: number) => {
@@ -113,8 +110,22 @@ export class PartHistoryComponent implements OnInit {
     public PostData(SerialNum: string) {
         const retVal = this.http.post(this.baseUrl + 'api/PartHistory/Post', { SN: SerialNum}).subscribe
             (data => {
-            this.retPostData = data;
+                this.toLoad = true;
+                this.SN = data;
+                this.database = new FileDatabase(this.http, this.baseUrl, JSON.stringify(this.SN));
+                this.loadTree();
             });
+     
+    }
+
+    public loadTree() {
+       
+        this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel,
+        this._isExpandable, this._getChildren);
+        this.treeControl = new FlatTreeControl<FileFlatNode>(this._getLevel, this._isExpandable);
+        this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+        this.database.dataChange.subscribe(data => this.dataSource.data = data);
     }
     
     

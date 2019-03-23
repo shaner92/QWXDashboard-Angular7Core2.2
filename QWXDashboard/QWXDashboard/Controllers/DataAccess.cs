@@ -25,7 +25,7 @@ namespace QWXDashboard.Controllers
             await collection.InsertOneAsync(new BsonDocument { { "Section", "Section1" }, {"Station", "Station3" } });
         }
 
-        public BsonDocument ReadAsync()
+        public BsonDocument ReadPartHistory(string SN)
         {
             // Create a MongoClient object by using the connection string
             var client = new MongoClient(connectionString);
@@ -35,10 +35,10 @@ namespace QWXDashboard.Controllers
 
             //get mongodb collection
             var collection = database.GetCollection<BsonDocument>("Part");
-            //var filter = Builders<BsonDocument>.Filter.Eq("Label", "Section1");
+            var filter = Builders<BsonDocument>.Filter.Eq("Serial Number", SN);
             var projection = Builders<BsonDocument>.Projection.Exclude("_id").Exclude("PressForce");
-            //return collection.Find<BsonDocument>(filter).Project(projection).ToList();
-            return collection.Find(new BsonDocument()).Project(projection).Single();
+            return collection.Find(filter).Project(projection).Single();
+           // return collection.Find(new BsonDocument()).Project(projection).Single();
 
 
 
