@@ -9,8 +9,14 @@ import { Component } from '@angular/core';
 export class AdminToolsComponent{
     connectionTypes: string[] = ['MongoDB', 'Azure SQL'];
     selectedConnection: string;
+
     constructor() {
-       
+        this.selectedConnection = 'MongoDB';
+    }
+
+    onItemChange(connectionType: string) {
+        this.selectedConnection = connectionType;
+        console.log(connectionType);
     }
 
  

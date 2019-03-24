@@ -5,7 +5,7 @@
 
 <mat-radio-group class="tp-radio-group" [(ngModel)]="selectedConnection">
     <mat-radio-button class="tp-radio-button"
-                      *ngFor="let connectionType of connectionTypes" [value]="connectionType">
+                      *ngFor="let connectionType of connectionTypes" [value]="connectionType" (change)="onItemChange(selectedConnection)">
         {{connectionType}}
     </mat-radio-button>
 </mat-radio-group>
