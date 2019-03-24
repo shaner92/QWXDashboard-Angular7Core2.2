@@ -16,30 +16,28 @@ namespace QWXDashboard.Controllers
     [ApiController]
     public class PartHistoryController : ControllerBase
     {
-        private DataAccess da = new DataAccess();
-        private BsonDocument phList = new BsonDocument();
+        private DataAccess da = new DataAccess(new MongoDBAccess());
 
-        [HttpGet("[action]")]
-        public string Get()
-        {
-     
-          //phList = da.ReadAsync();
-          var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
-            
-          return json;
-        }
+        //[HttpGet("[action]")]
+        //public string Get()
+        //{
+
+        //    //phList = da.ReadAsync();
+        //    var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
+
+        //    return json;
+        //}
 
         [HttpPost("[action]")]
         public string Post([FromBody] SerialNumber obj)
         {
             //string myObj = obj.SN;
             //var json = myObj.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
-            phList = da.ReadPartHistory(obj.SN);
-            var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
+            var json = da.ReadPartHistory(obj.SN);
+           // var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
 
             return json;
         }
-
 
     }
 }

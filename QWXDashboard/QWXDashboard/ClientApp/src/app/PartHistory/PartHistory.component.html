@@ -1,4 +1,4 @@
-<div class="grey">
+<div class="bg-grey part-history">
     <h1>Part History</h1>
 
     <p>Search for Serial Number</p>
@@ -8,27 +8,8 @@
         </mat-form-field>
         <button mat-stroked-button type="submit" (click)="PostData(SN.value)">Search</button>
         <br>
-      
-    </form>
-    <!--<p *ngIf="!data"><em>Loading...</em></p>
-    <table class='table' *ngIf="data">
-      <thead>
-        <tr>
-          <th>Part Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ph of data">
-          <td>{ph.serialNumber}}</td>
-        </tr>
-      </tbody>
-    </table>-->
-    <!--<div *ngIf="data">-->
 
-    <!--<input type="button" name="postBtn" style="height:25px;width:200px"
-           (click)="PostData()" value="Execute Http Post Call" />
-    
-    <hr>-->
+    </form>
 
     <div *ngIf="toLoad">
         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
@@ -48,4 +29,9 @@
             </mat-tree-node>
         </mat-tree>
     </div>
+
 </div>
+<!--<button mat-stroked-button type="submit" (click)="GenerateGraph()">Generate Graph</button>
+<body>
+
+</body>-->
