@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { PartHistoryComponent } from './PartHistory/PartHistory.component';
 import { TrendBrowserComponent } from './trend-browser/trend-browser.component';
 import { FooterComponent } from './footer/footer.component';
+import { AdminToolsComponent } from './AdminTools/AdminTools.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { FooterComponent } from './footer/footer.component';
         HomeComponent,
         PartHistoryComponent,
         TrendBrowserComponent,
+        AdminToolsComponent,
         FooterComponent,
     ],
     imports: [
@@ -37,6 +39,7 @@ import { FooterComponent } from './footer/footer.component';
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'PartHistory', component: PartHistoryComponent },
             { path: 'trend-browser', component: TrendBrowserComponent },
+            {path: 'AdminTools', component: AdminToolsComponent}
         ])
     ],
     providers: [],

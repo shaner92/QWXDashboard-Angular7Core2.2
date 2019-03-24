@@ -16,8 +16,18 @@ namespace QWXDashboard.Controllers
     [ApiController]
     public class PartHistoryController : ControllerBase
     {
-        private DataAccess da = new DataAccess(new MongoDBAccess());
-
+        private DataAccess da =  new DataAccess(new MongoDBAccess());
+        
+        public PartHistoryController()
+        {
+            //if ()
+            //{
+            //    da = new DataAccess(new MongoDBAccess());
+            //} else if ()
+            //{
+            //    da = new DataAccess(new SQLDataAccess());
+            //}
+        }
         //[HttpGet("[action]")]
         //public string Get()
         //{

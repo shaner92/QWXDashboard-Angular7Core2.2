@@ -3,7 +3,6 @@ import { Component, Injectable, Inject, OnInit, AfterContentInit } from '@angula
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import * as d3 from 'd3';
 /**
  * File node data with nested structure.
  * Each node has a filename, and a type or a list of children.
