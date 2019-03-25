@@ -7,7 +7,6 @@ import { MaterialModule } from './material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -46,5 +45,3 @@ import { AdminToolsComponent } from './AdminTools/AdminTools.component';
     bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-//platformBrowserDynamic().bootstrapModule(AppModule);

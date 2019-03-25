@@ -26,6 +26,8 @@ namespace QWXDashboard
                 .AddJsonFile($"appsettings.(env.EnvironmentName).json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            var environment = Configuration["ApplicationSettings:Environment"];
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -37,13 +39,30 @@ namespace QWXDashboard
             services.AddOptions();
 
             // Add our Config object so it can be injected
-            services.Configure<AppConfig>(Configuration.GetSection("AppConfig"));
+            services.Configure<AppConfig>(Configuration.GetSection("ApplicationSettings"));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+
+            //Add Authentication services
+            //services.AddAuthentication()
+            //    .AddJwtBearer(cfg =>
+            //    {
+            //        cfg.RequireHttpsMetadata = false;
+            //        cfg.SaveToken = true;
+
+            //        cfg.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+            //        {
+            //            ValidIssuer = Configuration["Tokens:Issuer"],
+            //            ValidAudience = Configuration["Tokens:Issuer"],
+            //            IssuerSigningKey = Sy
+            //            new SymmetricSecurityKey((Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+            //        };
+            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +81,7 @@ namespace QWXDashboard
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
