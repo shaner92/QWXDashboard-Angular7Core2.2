@@ -37,6 +37,10 @@ export class AuthService {
         this.router.navigate(['/login']);
     }
 
+    async register(email: string, password:string){
+        this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(email, password);
+    }
+
     get isLoggedIn(): boolean {
         const user = JSON.parse(localStorage.getItem('user'));
         return user !== null;
