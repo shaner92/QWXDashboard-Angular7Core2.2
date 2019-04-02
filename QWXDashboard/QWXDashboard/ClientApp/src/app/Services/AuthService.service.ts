@@ -9,6 +9,7 @@ import { User } from 'firebase';
 })
 export class AuthService {
     user: User;
+    error: any;
     constructor(public afAuth: AngularFireAuth, public router: Router) { 
         this.afAuth.authState.subscribe(user => {
             if (user) {
@@ -31,14 +32,19 @@ export class AuthService {
         }
     }
 
-    async loginGoogle(email: string, password: string) {
-        try {
-            let provider = new auth.GoogleAuthProvider;
+    async loginGoogle() {
+        let provider = new auth.GoogleAuthProvider;
+       
             await this.afAuth.auth.signInWithRedirect(provider)
-            this.router.navigate(['Home']);
-        } catch (e) {
-            alert("Error - " + e.message);
-        }
+                .then(
+                    (success) => {
+                        this.router.navigate(['Home']);
+                    }).catch(
+                        (err) => {
+                            alert(err.message);
+                            this.error = err;
+                        })
+            
     }
 
 
@@ -57,11 +63,12 @@ export class AuthService {
         this.router.navigate(['Login']);
     }
 
-    //get isLoggedIn(): boolean {
-        
+    get isLoggedIn(): boolean {
+        const token = this.afAuth.auth.currentUser.getIdToken;
+        return token !== null;
     //    const user = this.afAuth.auth.currentUser.displayName;
     //    return user !== null;
-    //}
+    }
 
     get username(): string {
         return this.afAuth.auth.currentUser.email;

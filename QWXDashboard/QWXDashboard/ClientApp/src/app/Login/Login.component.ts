@@ -12,8 +12,12 @@ import { AuthService } from '../Services/AuthService.service';
 
 export class LoginComponent implements OnInit {
     
-    constructor(private authService: AuthService) {
-
+    constructor(private authService: AuthService, private router: Router) {
+        this.authService.afAuth.authState.subscribe(auth => {
+            if (auth) {
+                this.router.navigate(['Home']);
+            }
+        });
     }
 
     ngOnInit() {}

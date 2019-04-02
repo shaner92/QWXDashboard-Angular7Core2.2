@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule, AngularFireAuth } from "@angular/fire/auth";
+import { AuthGuard } from './Services/AuthGuard.service';
 
 import { MaterialModule } from './material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -56,7 +57,7 @@ var config = {
             { path: '', component: LoginComponent , pathMatch: 'full' },
             { path: 'Registration', component: RegistrationComponent },
             { path: 'Home', component: HomeComponent},
-            { path: 'PartHistory', component: PartHistoryComponent },
+            { path: 'PartHistory', component: PartHistoryComponent, canActivate: [AuthGuard]},
             { path: 'trend-browser', component: TrendBrowserComponent },
             {path: 'AdminTools', component: AdminToolsComponent}
         ])
