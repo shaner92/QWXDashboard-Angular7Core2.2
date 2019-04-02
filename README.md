@@ -1,4 +1,4 @@
-# QWXDashboard-Angular7Core2.2
+# QualityDashboard-Angular7Core2.2
 To Do:
 Part History
 - Convert array from Part History document to waveform and display on screen
