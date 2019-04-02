@@ -7,20 +7,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-                <a [routerLink]='["/"]' class="nav-link" (click)='collapse()'>
-                    <span class='fas fa-home'></span> Home
+                <a [routerLink]='["/Home"]' class="nav-link" (click)='collapse()'>
+                    <span class='fas fa-home'></span>Home
                 </a>
             </li>
             <li class="nav-item" [routerLinkActive]='["link-active"]'>
                 <a [routerLink]='["/PartHistory"]' class="nav-link" (click)='collapse()'>
-                    <span class='fas fa-sort-amount-up'></span> Part History
+                    <span class='fas fa-sort-amount-up'></span>Part History
                 </a>
             </li>
 
 
             <li class="nav-item dropdown" [routerLinkActive]='["link-active"]'>
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class='fas fa-file'></span> Reports
+                    <span class='fas fa-file'></span>Reports
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" [routerLink]='["/trend-browser"]'>Trend Data</a>
@@ -32,12 +32,12 @@
             </li>
             <li class="nav-item" [routerLinkActive]='["link-active"]'>
                 <a [routerLink]='["/AdminTools"]' class="nav-link" (click)='collapse()'>
-                    <span class='fas fa-user-shield'></span> Admin Tools
+                    <span class='fas fa-user-shield'></span>Admin Tools
                 </a>
             </li>
-            <li *ngIf="authService.isLoggedIn" class="nav-item">
+            <!--<li *ngIf="authService.isLoggedIn()" class="nav-item" [routerLinkActive]='["link-active"]'>
                 <a class="nav-link" (click)="authService.logout()">Logout</a>
-            </li>
+            </li>-->
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
