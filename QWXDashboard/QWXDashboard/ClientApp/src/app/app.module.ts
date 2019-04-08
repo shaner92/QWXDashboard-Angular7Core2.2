@@ -54,15 +54,16 @@ var config = {
         MatNativeDateModule,
         ReactiveFormsModule,
         RouterModule.forRoot([
-            { path: '', component: LoginComponent , pathMatch: 'full' },
+            { path: '', component: LoginComponent, pathMatch: 'full' },
+            { path: 'Login', component: LoginComponent },
             { path: 'Registration', component: RegistrationComponent },
             { path: 'Home', component: HomeComponent},
             { path: 'PartHistory', component: PartHistoryComponent, canActivate: [AuthGuard]},
-            { path: 'trend-browser', component: TrendBrowserComponent },
-            {path: 'AdminTools', component: AdminToolsComponent}
+            { path: 'trend-browser', component: TrendBrowserComponent, canActivate: [AuthGuard] },
+            { path: 'AdminTools', component: AdminToolsComponent, canActivate: [AuthGuard]}
         ])
     ],
-    providers: [],
+    providers: [AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

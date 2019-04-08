@@ -32,9 +32,9 @@
                     <span class='fas fa-user-shield'></span>Admin Tools
                 </a>
             </li>
-            <!--<li *ngIf="authService.isLoggedIn()" class="nav-item" [routerLinkActive]='["link-active"]'>
-                <a class="nav-link" (click)="authService.logout()">Logout</a>
-            </li>-->
+            <li *ngIf="authService.isLoggedIn()" class="nav-item" [routerLinkActive]='["link-active"]'>
+                <a [routerLink]='["/Login"]' class="nav-link" (click)="authService.logout()">Logout</a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

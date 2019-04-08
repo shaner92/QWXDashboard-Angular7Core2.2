@@ -63,11 +63,9 @@ export class AuthService {
         this.router.navigate(['Login']);
     }
 
-    get isLoggedIn(): boolean {
-        const token = this.afAuth.auth.currentUser.getIdToken;
-        return token !== null;
-    //    const user = this.afAuth.auth.currentUser.displayName;
-    //    return user !== null;
+   isLoggedIn(): boolean {
+       const user = JSON.parse(localStorage.getItem('user'))
+        return user !== null;
     }
 
     get username(): string {

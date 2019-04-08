@@ -1,22 +1,29 @@
-<form>
-    <div class="form-group">
-        <mat-form-field appearance="outline">
-            <input #userEmail required matInput placeholder="Username" />
-        </mat-form-field>
-    </div>
-    <div class="form-group">
-        <mat-form-field appearance="outline">
-            <input #userPassword required matInput placeholder="Password" />
-        </mat-form-field>
-    </div>
-    <div class="form-group">
-        <button mat-raised-button (click)="authService.loginEmail(userEmail.value, userPassword.value)">Loginin With Email</button>
-    </div>
-        <div class="form-group">
-            <button mat-raised-button (click)="authService.loginGoogle()">Login With Google</button>
+<div class="container d-flex h-100 flex-column">
+    <div class="row justify-content-center p-5">
+        <div class="col-3">
+            <form>
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <input #userEmail required matInput placeholder="Email" />
+                        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <input #userPassword required matInput placeholder="Password" />
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <button mat-raised-button (click)="authService.loginEmail(userEmail.value, userPassword.value)">Loginin With Email</button>
+                </div>
+                <div class="form-group">
+                    <button mat-raised-button (click)="authService.loginGoogle()">Login With Google</button>
+                </div>
+                <div class="form-group">
+                    <a routerLink="/Registration" routerLinkActive="active" class="alc">No account? <strong>Create one here</strong></a>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <a routerLink="/Registration" routerLinkActive="active" class="alc">No account? <strong>Create one here</strong></a>
-        </div>
-</form>
-  
+    </div>
+</div>
+
