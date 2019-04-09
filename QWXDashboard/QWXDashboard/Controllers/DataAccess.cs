@@ -15,9 +15,9 @@ namespace QWXDashboard.Controllers
             this.da = da;
         }
 
-        public string ReadPartHistory(string sn)
+        public async Task<string> ReadPartHistory(string sn)
         {
-            return da.ReadPartHistory(sn);
+            return await da.ReadPartHistory(sn);
         }
     }
 }

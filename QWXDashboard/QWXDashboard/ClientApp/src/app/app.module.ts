@@ -19,6 +19,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { PartHistoryComponent } from './PartHistory/PartHistory.component';
 import { TrendBrowserComponent } from './trend-browser/trend-browser.component';
+import { FailureReportComponent } from './FailureReport/FailureReport.component';
 import { FooterComponent } from './footer/footer.component';
 import { AdminToolsComponent } from './AdminTools/AdminTools.component';
 
@@ -40,6 +41,7 @@ var config = {
         HomeComponent,
         PartHistoryComponent,
         TrendBrowserComponent,
+        FailureReportComponent,
         AdminToolsComponent,
         FooterComponent,
     ],
@@ -60,6 +62,7 @@ var config = {
             { path: 'Home', component: HomeComponent},
             { path: 'PartHistory', component: PartHistoryComponent, canActivate: [AuthGuard]},
             { path: 'trend-browser', component: TrendBrowserComponent, canActivate: [AuthGuard] },
+            { path: 'FailureReport', component: FailureReportComponent, canActivate: [AuthGuard] },
             { path: 'AdminTools', component: AdminToolsComponent, canActivate: [AuthGuard]}
         ])
     ],

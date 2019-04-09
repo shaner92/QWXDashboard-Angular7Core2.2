@@ -14,11 +14,11 @@ namespace QWXDashboard.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PartHistoryController : ControllerBase
+    public class FailureReportController : ControllerBase
     {
         private DataAccess da =  new DataAccess(new MongoDBAccess());
         
-        public PartHistoryController()
+        public FailureReportController()
         {
             //if ()
             //{
@@ -29,26 +29,20 @@ namespace QWXDashboard.Controllers
             //    da = new DataAccess(new SQLDataAccess());
             //}
         }
-        //[HttpGet("[action]")]
-        //public string Get()
+
+
+        //[HttpPost("[action]")]
+        //public string Post([FromBody] SerialNumber obj)
+        //{
+        //   // //string myObj = obj.SN;
+        //   // //var json = myObj.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
+        //   // var json = da.ReadPartHistory(obj.SN);
+        //   //// var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
+
+        //   // return json;
         //}
-
-        [HttpPost("[action]")]
-        public Task<string> Post([FromBody] SerialNumber obj)
-        {
-            //string myObj = obj.SN;
-            //var json = myObj.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
-            var json = da.ReadPartHistory(obj.SN);
-           // var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
-
-            return json;
-        }
 
     }
 }
-public class SerialNumber
-{
-    public string SN;
 
-}
 

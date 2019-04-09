@@ -82,6 +82,7 @@ export class PartHistoryComponent implements OnInit {
     constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
         this.http = http;
         this.baseUrl = baseUrl;
+        this.database = new FileDatabase(JSON.stringify("123456"));
     }
 
     transformer = (node: FileNode, level: number) => {
@@ -107,7 +108,8 @@ export class PartHistoryComponent implements OnInit {
             (data => {
                 this.toLoad = true;
                 this.SN = data;
-                this.database = new FileDatabase(JSON.stringify(this.SN));
+                console.time("concatenation");
+                console.timeEnd("concatenation");
                 this.loadTree();
             });
 
