@@ -13015,23 +13015,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\regniers\\.nuget\\packages\\": {},
+    "C:\\Users\\shaner\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.9.1",
     "restore": {
-      "projectUniqueName": "C:\\Users\\regniers\\Documents\\GitHub\\QWXDashboard-Angular7Core2.2\\QWXDashboard\\QWXDashboard\\QWXDashboard.csproj",
+      "projectUniqueName": "C:\\Users\\shaner\\OneDrive - Sciemetric Instruments\\GitHub\\QWXDashboard-Angular7Core2.2\\QWXDashboard\\QWXDashboard\\QWXDashboard.csproj",
       "projectName": "ASP.NET Core 2.2 with Angular 7 Template",
-      "projectPath": "C:\\Users\\regniers\\Documents\\GitHub\\QWXDashboard-Angular7Core2.2\\QWXDashboard\\QWXDashboard\\QWXDashboard.csproj",
-      "packagesPath": "C:\\Users\\regniers\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\regniers\\Documents\\GitHub\\QWXDashboard-Angular7Core2.2\\QWXDashboard\\QWXDashboard\\obj\\",
+      "projectPath": "C:\\Users\\shaner\\OneDrive - Sciemetric Instruments\\GitHub\\QWXDashboard-Angular7Core2.2\\QWXDashboard\\QWXDashboard\\QWXDashboard.csproj",
+      "packagesPath": "C:\\Users\\shaner\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\shaner\\OneDrive - Sciemetric Instruments\\GitHub\\QWXDashboard-Angular7Core2.2\\QWXDashboard\\QWXDashboard\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\regniers\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\shaner\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

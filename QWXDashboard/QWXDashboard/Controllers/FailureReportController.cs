@@ -31,17 +31,13 @@ namespace QWXDashboard.Controllers
         }
 
 
-        //[HttpPost("[action]")]
-        //public string Post([FromBody] SerialNumber obj)
-        //{
-        //   // //string myObj = obj.SN;
-        //   // //var json = myObj.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
-        //   // var json = da.ReadPartHistory(obj.SN);
-        //   //// var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
+        [HttpPost("[action]")]
+        public Task<string> Post()
+        {
+            var json = da.ReadFailureReport();
 
-        //   // return json;
-        //}
-
+            return json;
+        }
     }
 }
 

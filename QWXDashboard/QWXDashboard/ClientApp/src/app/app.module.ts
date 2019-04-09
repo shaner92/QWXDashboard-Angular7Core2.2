@@ -56,7 +56,7 @@ var config = {
         MatNativeDateModule,
         ReactiveFormsModule,
         RouterModule.forRoot([
-            { path: '', component: LoginComponent, pathMatch: 'full' },
+            { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'Login', component: LoginComponent },
             { path: 'Registration', component: RegistrationComponent },
             { path: 'Home', component: HomeComponent},

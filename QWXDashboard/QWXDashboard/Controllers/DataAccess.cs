@@ -19,5 +19,9 @@ namespace QWXDashboard.Controllers
         {
             return await da.ReadPartHistory(sn);
         }
+        public async Task<string> ReadFailureReport()
+        {
+            return await da.ReadFailureReport();
+        }
     }
 }

@@ -37,6 +37,10 @@ export class FailureReportComponent implements OnInit {
     constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
         this.http = http;
         this.baseUrl = baseUrl;
+        const retVal = this.http.get(this.baseUrl + 'api/FailureReport/Post').subscribe
+            (data => {
+                console.log(data);
+            });
     }
 
 
@@ -46,13 +50,10 @@ export class FailureReportComponent implements OnInit {
    
 
     public PostData() {
-        //const retVal = this.http.post(this.baseUrl + 'api/PartHistory/Post', { SN: SerialNum }).subscribe
-        //    (data => {
-        //        this.toLoad = true;
-        //        this.SN = data;
-        //        this.database = new FileDatabase(JSON.stringify(this.SN));
-        //        this.loadTree();
-        //    });
+        const retVal = this.http.get(this.baseUrl + 'api/FailureReport/Post').subscribe
+            (data => {
+
+            });
 
     }
 

@@ -11,7 +11,7 @@ namespace QWXDashboard.Controllers
     public interface DataAccessInterface
     {
         Task<string> ReadPartHistory(string sn);
-        
+        Task<string> ReadFailureReport();
 
     }
        
