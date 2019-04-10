@@ -65,8 +65,7 @@ export class FileDatabase {
  */
 @Component({
     selector: 'app-PartHistory',
-    templateUrl: './PartHistory.component.html',
-    providers: [FileDatabase]
+    templateUrl: './PartHistory.component.html'
 })
 export class PartHistoryComponent implements OnInit {
     SN: object;

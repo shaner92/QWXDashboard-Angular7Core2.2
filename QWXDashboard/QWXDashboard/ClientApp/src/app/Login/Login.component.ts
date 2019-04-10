@@ -11,8 +11,9 @@ import { FormControl, Validators } from '@angular/forms';
 })
 
 export class LoginComponent implements OnInit {
-    
-    constructor(private authService: AuthService, private router: Router) {
+    authService: AuthService;
+    router: Router;
+    constructor() {
         this.authService.afAuth.authState.subscribe(auth => {
             if (auth) {
                 this.router.navigate(['Home']);

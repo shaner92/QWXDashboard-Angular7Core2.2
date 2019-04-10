@@ -8,8 +8,8 @@ import { AuthService } from '../Services/AuthService.service';
 })
 export class HomeComponent implements OnInit {
     name: any;
-    private img2 = require("assets/images/graph-3331249.svg");
-    private img1 = require("assets/images/gui-2311261.svg");
+    img2 = require("assets/images/graph-3331249.svg");
+    img1 = require("assets/images/gui-2311261.svg");
 
     constructor(private authService: AuthService) {
         this.authService.afAuth.authState.subscribe(auth => {

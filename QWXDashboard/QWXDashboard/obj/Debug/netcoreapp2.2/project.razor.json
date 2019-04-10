@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "c:\\Users\\shaner\\OneDrive - Sciemetric Instruments\\GitHub\\QWXDashboard-Angular7Core2.2\\QWXDashboard\\QWXDashboard\\QWXDashboard.csproj",
+  "TargetFramework": "netcoreapp2.2",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "MVC-2.1",
+    "LanguageVersion": "2.1",
+    "Extensions": [
+      {
+        "ExtensionName": "MVC-2.1"
+      }
+    ]
+  }
+}
