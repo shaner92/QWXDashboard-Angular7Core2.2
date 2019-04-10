@@ -68,4 +68,3 @@ C:\Users\regniers\Documents\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWX
 C:\Users\regniers\Documents\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\obj\Debug\netcoreapp2.2\ASP.NET Core 2.2 with Angular 7.dll
 C:\Users\regniers\Documents\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\obj\Debug\netcoreapp2.2\ASP.NET Core 2.2 with Angular 7.pdb
 C:\Users\regniers\Documents\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\obj\Debug\netcoreapp2.2\QWXDashboard.csproj.CopyComplete
-C:\Users\regniers\Documents\GitHub\QWXDashboard-Angular7Core2.2\QWXDashboard\QWXDashboard\obj\Debug\netcoreapp2.2\QWXDashboard.csprojAssemblyReference.cache

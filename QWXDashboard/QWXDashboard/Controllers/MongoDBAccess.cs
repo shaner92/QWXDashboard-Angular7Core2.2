@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -42,10 +43,13 @@ namespace QWXDashboard.Controllers
 
             //get mongodb collection
             var collection = database.GetCollection<BsonDocument>("Part");
-            //var filter = Builders<BsonDocument>.Filter.Eq("Serial Number", SN);
-            var projection = Builders<BsonDocument>.Projection.Include("Serial Number").Include("Part Status");
+            //var filter = Builders<BsonDocument>.Filter.Eq("Serial Number", "123456");
 
-            var data = await collection.Find(_ => true).ToListAsync();
+            var projection = Builders<BsonDocument>.Projection.Exclude("_id");
+
+            var data = await collection.Find(_ => true).Project(projection).ToListAsync();
+
+            //RootObject obj = JsonConvert.DeserializeObject<RootObject>(data.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true }));
 
             return data.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
         }

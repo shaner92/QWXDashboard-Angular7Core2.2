@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
-using System.Web;
-using MongoDB.Bson;
-using MongoDB.Driver;
+
 
 namespace QWXDashboard.Controllers
 {
@@ -36,11 +28,7 @@ namespace QWXDashboard.Controllers
         [HttpPost("[action]")]
         public Task<string> Post([FromBody] SerialNumber obj)
         {
-            //string myObj = obj.SN;
-            //var json = myObj.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
             var json = da.ReadPartHistory(obj.SN);
-           // var json = phList.ToJson(new MongoDB.Bson.IO.JsonWriterSettings { Indent = true });
-
             return json;
         }
 

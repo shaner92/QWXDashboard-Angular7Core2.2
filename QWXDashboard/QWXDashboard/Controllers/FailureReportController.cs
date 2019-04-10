@@ -32,7 +32,7 @@ namespace QWXDashboard.Controllers
 
 
         [HttpPost("[action]")]
-        public Task<string> Post()
+        public Task<string> Post(string obj)
         {
             var json = da.ReadFailureReport();
 
