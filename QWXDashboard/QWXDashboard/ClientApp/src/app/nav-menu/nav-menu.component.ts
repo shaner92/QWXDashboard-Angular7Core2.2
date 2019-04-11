@@ -8,8 +8,8 @@ import { AuthService } from '../Services/AuthService.service';
 })
 export class NavMenuComponent implements OnInit{
   isExpanded = false;
-  authService: AuthService;
-    constructor() {
+ 
+    constructor(private authService : AuthService) {
 
     }
 
