@@ -1,4 +1,4 @@
-<div class="container d-flex h-100 flex-column">
+<!-- <div class="wrapper">
     <div class="row justify-content-center p-5">
         <div class="col-3">
             <form>
@@ -25,5 +25,28 @@
             </form>
         </div>
     </div>
-</div>
-
+</div> -->
+<div class="wrapper">
+    <div id="formContent">
+  
+      <!-- Login Form -->
+      <form>
+        <mat-form-field appearance="outline">
+            <input #userEmail required matInput placeholder="Email" />
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <input #userPassword required matInput placeholder="Password" />
+        </mat-form-field>
+        <button mat-raised-button (click)="authService.loginEmail(userEmail.value, userPassword.value)">Loginin With Email</button>
+        <button mat-raised-button (click)="authService.loginGoogle()">Login With Google</button>
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" routerLink="/" routerLinkActive="active">Forgot Password?</a>
+        <a class="underlineHover" routerLink="/Registration" routerLinkActive="active">No account? <strong>Create one here</strong></a>
+      </div>
+  
+    </div>
+  </div>
