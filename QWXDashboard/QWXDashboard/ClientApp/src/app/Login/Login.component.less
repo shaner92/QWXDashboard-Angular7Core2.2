@@ -1,4 +1,11 @@
-﻿.wrapper {
+﻿/*Template colors*/
+@red: #fb5a68;
+@grey: #a5aaad;
+@teal: #149cb4;
+@darkgrey: #676b71;
+@green: #94c971;
+
+.wrapper {
     display: flex;
     align-items: center;
     flex-direction: column; 
@@ -7,7 +14,7 @@
     min-height: 100%;
     padding: 20px;
   }
-  #formContent {
+  .formContent {
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
     background: #fff;
@@ -20,4 +27,16 @@
     box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
     text-align: center;
   }
-  
+
+.fa-users {
+    color:@teal;
+}
+
+.formFooter {
+    background-color: #f6f6f6;
+    border-top: 1px solid #dce8f1;
+    padding: 25px;
+    text-align: center;
+    -webkit-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+}
